@@ -17,8 +17,8 @@ class Event {
 
 const eventList = new List(1, 'Event List');
 var events = [
-  new Event(1, 'Event 1', 'Description 1', '2022-01-01', '123 Main St, NY'),
-  new Event(2, 'Event 2', 'Description 2', '2022-02-01', '456 Broadway St, NY')
+  new Event(1, 'Event test', 'A fun event', '2023-01-01', 'Av. São Paulo, São Paulo, São Paulo'),
+  new Event(2, 'Event 2', 'An even funnier event', '2024-02-01', '456 Broadway St, NY')
 ];
 
 let curEvents = 2;
