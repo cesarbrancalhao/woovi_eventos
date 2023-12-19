@@ -3,7 +3,7 @@ This repository used [relay-fullstack](https://github.com/lvarayut/relay-fullsta
 ## Usage
 
 Open git bash and follow the instructions:
-```bash
+```php
 $ git clone https://github.com/cesarbrancalhao/woovi_eventos.git
 $ cd woovi_eventos
 $ npm install
@@ -14,7 +14,6 @@ $ npm start
 - `http://localhost:8000` -> GraphQL.
 
 ## Project Structure
-
 
     ├── client - All of client side
     │   ├── assets
@@ -45,28 +44,32 @@ $ npm start
 
 ## Stacks
 
-[Relay](https://facebook.github.io/relay)
+- [React](https://facebook.github.io/react) v15.4.1
 
-[React](https://facebook.github.io/react)
+- [Relay](https://facebook.github.io/relay) v0.10
 
-[GraphQL](https://github.com/facebook/graphql)
+- [GraphQL](https://github.com/facebook/graphql) v0.8.2
 
-[Express](http://expressjs.com/)
+- [NodeJS](https://nodejs.org/en) v6.6
 
-[Webpack](https://webpack.github.io)
+- [Npm](https://www.npmjs.com/) v3.10
 
-[Babel](https://babeljs.io)
+- [Express](http://expressjs.com/) v4.14
 
-[ES6/ES7](https://github.com/lukehoban/es6features)
+- [Webpack](https://webpack.github.io) v2.2
 
-[PostCSS](http://postcss.org)
+- [Babel](https://babeljs.io) v6.18
 
-[Eslint](http://eslint.org)
+- [PostCSS](http://postcss.org) v2.2
 
-[Autoprefixer](https://github.com/postcss/autoprefixer)
+- [Eslint](http://eslint.org) v3.12
 
-[Precss](https://github.com/jonathantneal/precss)
+- [Autoprefixer](https://github.com/postcss/autoprefixer) v6.6
 
-[Nodemon](http://nodemon.io)
+- [Precss 1.4](https://github.com/jonathantneal/precss) v1.4
 
-[CSS Modules](https://github.com/css-modules/css-modules)
+- [Nodemon](http://nodemon.io) v1.11
+
+- [Webpack](https://webpack.js.org/) v2.2
+
+- [CSS Modules](https://github.com/css-modules/css-modules)
