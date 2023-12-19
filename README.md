@@ -23,7 +23,6 @@ $ npm start
     │   ├── routes
     │   │   ├── Route.js
     │   │   └── ViewerQuery.js - Entry node for GraphQL
-    │   ├── index.html
     │   └── index.js
     ├── server - Server side code
     │   ├── config
