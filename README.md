@@ -3,7 +3,7 @@ This repository used [relay-fullstack](https://github.com/lvarayut/relay-fullsta
 ## Usage
 
 Open git bash and follow the instructions:
-```php
+```bash
 $ git clone https://github.com/cesarbrancalhao/woovi_eventos.git
 $ cd woovi_eventos
 $ npm install
