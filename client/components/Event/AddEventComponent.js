@@ -58,8 +58,8 @@ export default class Event extends React.Component {
   };
 
   addEvent = () => {
-    let self = this;
-    this.state.inputs.map(x => { inputData.newEvent[x.name] = self.refs[x.name].value; });
+    const self = this;
+    this.state.inputs.forEach((x) => { inputData.newEvent[x.name] = self.refs[x.name].value; });
     this.validation(inputData.newEvent, (isValidated) => {
       if (isValidated) {
         if (self.isNew) {
@@ -79,17 +79,19 @@ export default class Event extends React.Component {
     Relay.Store.commitUpdate(deleteEventMutation);
   }
 
-  renderInput = (input) => (
-      <label htmlFor={input.name} key={input.name}>
+  renderInput = input => (
+    <label htmlFor={input.name} key={input.name}>
       {input.placeholder}
-        <input className={styles.input}
-          id={input.name}
-          key={input.name}
-          ref={input.name}
-          name={input.name}
-          type={input.type}
-          defaultValue={input.defaultValue} />
-      </label>
+      <input
+        className={styles.input}
+        id={input.name}
+        key={input.name}
+        ref={input.name}
+        name={input.name}
+        type={input.type}
+        defaultValue={input.defaultValue}
+      />
+    </label>
   );
 
   render() {

@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars, no-use-before-define */
+
 import {
   GraphQLID,
   GraphQLNonNull,
@@ -19,6 +20,9 @@ import {
 } from 'graphql-relay';
 
 import {
+  addEvent,
+  updateEvent,
+  deleteEvent,
   Event,
   List,
   getEvent,

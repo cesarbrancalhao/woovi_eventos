@@ -16,7 +16,7 @@ class Event {
 }
 
 const eventList = new List(1, 'Event List');
-var events = [
+let events = [
   new Event(1, 'Event test', 'A fun event', '2023-01-01', 'Av. São Paulo, São Paulo, São Paulo'),
   new Event(2, 'Event 2', 'An even funnier event', '2024-02-01', '456 Broadway St, NY')
 ];
@@ -31,18 +31,16 @@ function addEvent(name, description, date, address) {
 }
 
 function updateEvent(name, description, date, oldName, address) {
-  var Event = events.find(w => w.name === oldName);
-  Event.name = name;
-  Event.description = description;
-  Event.date = date;
-  Event.address = address;
-  return Event;
+  const uEvent = events.find(w => w.name === oldName);
+  uEvent.name = name;
+  uEvent.description = description;
+  uEvent.date = date;
+  uEvent.address = address;
+  return uEvent;
 }
 
 function deleteEvent(id, name) {
-  events = events.filter( (Event) => {
-    return Event.name !== name;
-  });
+  events = events.filter(dEvent => dEvent.name !== name);
   return { id };
 }
 
@@ -63,4 +61,3 @@ export {
   deleteEvent, getEvent,
   getEvents, getList, updateEvent
 };
-
