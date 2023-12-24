@@ -12,11 +12,24 @@ const inputData = {
 
 export default class Event extends React.Component {
   static propTypes = {
-    viewer: React.PropTypes.object.isRequired
+    viewer: React.PropTypes.object.isRequired,
+    node: Relay.PropTypes.node
   };
 
+  state = {
+    form: {
+      errors: ''
+    },
+    inputs: [
+      { name: 'name', type: 'text', placeholder: 'Name', defaultValue: this.name },
+      { name: 'description', type: 'text', placeholder: 'Description', defaultValue: this.description },
+      { name: 'date', type: 'date', placeholder: 'Date', defaultValue: this.date },
+      { name: 'address', type: 'text', placeholder: 'Address', defaultValue: this.address },
+    ]
+  }
+
   title = 'Add Event';
-  isNew = this.props.node ? false : true;
+  isNew = !this.props.node;
   button = !this.isNew ? 'EDIT' : 'ADD';
   cardClass = !this.isNew ? styles.none : styles.card;
 
@@ -26,40 +39,13 @@ export default class Event extends React.Component {
   date = !this.isNew ? this.props.node.date : '';
   address = !this.isNew ? this.props.node.address : '';
 
-  state = {
-    form: {
-      errors: ''
-    },
-    inputs : [
-      { name: 'name', type: 'text', placeholder: 'Name', defaultValue: this.name },
-      { name: 'description', type: 'text', placeholder: 'Description', defaultValue: this.description },
-      { name: 'date', type: 'date', placeholder: 'Date', defaultValue: this.date },
-      { name: 'address', type: 'text', placeholder: 'Address', defaultValue: this.address },
-    ]
-  }
-
-  renderInput = (input) => {
-    return (
-      <label key={input.name}>
-      {input.placeholder}
-        <input className={styles.input}
-          id={input.name}
-          key={input.name}
-          ref={input.name}
-          name={input.name}
-          type={input.type}
-          defaultValue={input.defaultValue} />
-      </label>
-    );
-  };
-
   validation = (values, validated) => {
-    var isValidated = true;
+    let isValidated = true;
     this.setState({ form: { errors: '' } });
     if (values.name.length === 0
       || values.description.length === 0
       || values.date.length === 0
-      || values.address.length === 0 ) {
+      || values.address.length === 0) {
       this.setState({ form: { errors: 'Complete all the fields' } });
       isValidated = false;
     } else if (this.isNew) {
@@ -72,10 +58,10 @@ export default class Event extends React.Component {
   };
 
   addEvent = () => {
-    var self = this;
-    this.state.inputs.map((x, i) => { inputData.newEvent[x.name] = self.refs[x.name].value });
+    let self = this;
+    this.state.inputs.map(x => { inputData.newEvent[x.name] = self.refs[x.name].value; });
     this.validation(inputData.newEvent, (isValidated) => {
-      if(isValidated) {
+      if (isValidated) {
         if (self.isNew) {
           const addEventMutation = new AddEventMutation({ viewerId: self.props.viewer.id, ...inputData.newEvent });
           Relay.Store.commitUpdate(addEventMutation);
@@ -87,15 +73,28 @@ export default class Event extends React.Component {
       }
     });
   }
-  
+
   deleteEvent = (id) => {
-    const deleteEventMutation = new DeleteEventMutation({ viewerId: this.props.viewer.id, id: id });
+    const deleteEventMutation = new DeleteEventMutation({ viewerId: this.props.viewer.id, id });
     Relay.Store.commitUpdate(deleteEventMutation);
   }
-    
-    render() {
-    const imageUrl = require(`../../assets/team.jpg`);
-      return (
+
+  renderInput = (input) => (
+      <label htmlFor={input.name} key={input.name}>
+      {input.placeholder}
+        <input className={styles.input}
+          id={input.name}
+          key={input.name}
+          ref={input.name}
+          name={input.name}
+          type={input.type}
+          defaultValue={input.defaultValue} />
+      </label>
+  );
+
+  render() {
+    const imageUrl = require('../../assets/team.jpg');
+    return (
       <Card className={this.cardClass}>
         <CardActions className={styles.name}>
           {this.isNew &&
@@ -115,5 +114,5 @@ export default class Event extends React.Component {
         </Grid>
       </Card>
     );
-    }
+  }
 }
