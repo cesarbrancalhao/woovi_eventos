@@ -17,7 +17,7 @@ export default class Event extends React.Component {
   }
 
   deleteEvent = (id, name) => {
-    const deleteEventMutation = new DeleteEventMutation({ viewerId: this.props.viewer.id, id: id, name : name });
+    const deleteEventMutation = new DeleteEventMutation({ viewerId: this.props.viewer.id, id: id, name: name });
     Relay.Store.commitUpdate(deleteEventMutation);
   };
 
@@ -35,7 +35,7 @@ export default class Event extends React.Component {
               <Button colored onClick={this.filterByName.bind(this, false)}>List over 30</Button>
             </Cell>
             {this.props.viewer.events.edges.map((edge) => {
-              const imageUrl = require(`../../assets/team.jpg`);
+              const imageUrl = require('../../assets/team.jpg');
               var toggleForm = (display) => { edge.node.displayForm = display ? false : true; this.forceUpdate(); };
               if (this.state.filter || edge.node.age > 30) {
                 return (

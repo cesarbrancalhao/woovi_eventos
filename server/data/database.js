@@ -40,7 +40,7 @@ function updateEvent(name, description, date, oldName, address) {
 }
 
 function deleteEvent(id, name) {
-  events = events.filter(function(Event) {
+  events = events.filter( (Event) => {
     return Event.name !== name;
   });
   return { id };

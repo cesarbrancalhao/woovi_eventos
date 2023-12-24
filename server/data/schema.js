@@ -130,7 +130,7 @@ const updateEventMutation = mutationWithClientMutationId({
   outputFields: {
     event: {
       type: eventType,
-      resolve: ({name}) => getEvent(name),
+      resolve: ({ name }) => getEvent(name),
     },
     viewer: {
       type: listType,
@@ -151,7 +151,7 @@ const deleteEventMutation = mutationWithClientMutationId({
   outputFields: {
     DeletedEvent: {
       type: GraphQLID,
-      resolve: ({id}) => id,
+      resolve: ({ id }) => id,
     },
     viewer: {
       type: listType,

@@ -15,26 +15,26 @@ export default class Event extends React.Component {
     viewer: React.PropTypes.object.isRequired
   };
 
-  title = "Add Event";
+  title = 'Add Event';
   isNew = this.props.node ? false : true;
-  button = !this.isNew ? "EDIT" : "ADD";
+  button = !this.isNew ? 'EDIT' : 'ADD';
   cardClass = !this.isNew ? styles.none : styles.card;
 
-  id = !this.isNew ? this.props.node.id : "";
-  name = !this.isNew ? this.props.node.name : "";
-  description = !this.isNew ? this.props.node.description : "";
-  date = !this.isNew ? this.props.node.date : "";
-  address = !this.isNew ? this.props.node.address : "";
+  id = !this.isNew ? this.props.node.id : '';
+  name = !this.isNew ? this.props.node.name : '';
+  description = !this.isNew ? this.props.node.description : '';
+  date = !this.isNew ? this.props.node.date : '';
+  address = !this.isNew ? this.props.node.address : '';
 
   state = {
     form: {
       errors: ''
     },
     inputs : [
-      { name: 'name', type: 'text', placeholder: 'Name', defaultValue: this.name},
-      { name: 'description', type: 'text', placeholder: 'Description', defaultValue: this.description},
-      { name: 'date', type: 'date', placeholder: 'Date', defaultValue: this.date},
-      { name: 'address', type: 'text', placeholder: 'Address', defaultValue: this.address},
+      { name: 'name', type: 'text', placeholder: 'Name', defaultValue: this.name },
+      { name: 'description', type: 'text', placeholder: 'Description', defaultValue: this.description },
+      { name: 'date', type: 'date', placeholder: 'Date', defaultValue: this.date },
+      { name: 'address', type: 'text', placeholder: 'Address', defaultValue: this.address },
     ]
   }
 
@@ -91,11 +91,11 @@ export default class Event extends React.Component {
   deleteEvent = (id) => {
     const deleteEventMutation = new DeleteEventMutation({ viewerId: this.props.viewer.id, id: id });
     Relay.Store.commitUpdate(deleteEventMutation);
-    }
+  }
     
     render() {
     const imageUrl = require(`../../assets/team.jpg`);
-    return (
+      return (
       <Card className={this.cardClass}>
         <CardActions className={styles.name}>
           {this.isNew &&
@@ -110,10 +110,10 @@ export default class Event extends React.Component {
         </CardText>
         <Grid>
           <Cell col={12}>
-            <Button raised accent onClick={this.addEvent.bind(this,)}>{this.button}</Button>
+            <Button raised accent onClick={this.addEvent.bind(this)}>{this.button}</Button>
           </Cell>
         </Grid>
       </Card>
     );
-  }
+    }
 }
