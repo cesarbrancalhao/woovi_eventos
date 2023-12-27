@@ -32,7 +32,7 @@ export default class Event extends React.Component {
           <Grid>
             <Cell col={12}>
               <Button colored onClick={this.filterByName.bind(this, true)}>List all Events</Button>
-              <Button colored onClick={this.filterByName.bind(this, false)}>List over 30</Button>
+              {/* <Button colored onClick={this.filterByName.bind(this, false)}>List over 30</Button> */}
             </Cell>
             {this.props.viewer.events.edges.map((edge) => {
               const imageUrl = require('../../assets/team.jpg');

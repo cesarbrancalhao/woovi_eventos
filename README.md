@@ -1,11 +1,11 @@
-This repository used [relay-fullstack](https://github.com/lvarayut/relay-fullstack) as a starting point. Please take a look at the code.
-
 ## Usage
 
 Open git bash and follow the instructions:
+
 ```bash
 $ git clone https://github.com/cesarbrancalhao/woovi_eventos.git
 $ cd woovi_eventos
+$ npm install -g nodemon
 $ npm install
 $ npm start
 ```

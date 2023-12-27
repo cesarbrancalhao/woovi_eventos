@@ -20,6 +20,7 @@ node_modules/
 # App Files
 # --------------------
 build/
+package-lock.json
 
 # --------------------
 # IntelliJ Files
@@ -36,4 +37,3 @@ build/
 # --------------------
 *.swp
 *.vim
-

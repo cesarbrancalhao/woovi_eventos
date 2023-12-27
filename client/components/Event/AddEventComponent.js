@@ -13,7 +13,7 @@ const inputData = {
 export default class Event extends React.Component {
   static propTypes = {
     viewer: React.PropTypes.object.isRequired,
-    node: Relay.PropTypes.node
+    node: React.PropTypes.node
   };
 
   state = {
@@ -63,14 +63,16 @@ export default class Event extends React.Component {
     this.validation(inputData.newEvent, (isValidated) => {
       if (isValidated) {
         if (self.isNew) {
-          const addEventMutation = new AddEventMutation({ viewerId: self.props.viewer.id, ...inputData.newEvent });
-          Relay.Store.commitUpdate(addEventMutation);
+          if (inputData.newEvent.name && inputData.newEvent.description && inputData.newEvent.date && inputData.newEvent.address) {
+            const addEventMutation = new AddEventMutation({ viewerId: self.props.viewer.id, ...inputData.newEvent });
+            Relay.Store.commitUpdate(addEventMutation);
+          }
         } else {
           inputData.newEvent.id = self.props.node.id;
           const updateEventMutation = new UpdateEventMutation({ viewerId: self.props.viewer.id, ...inputData.newEvent });
           Relay.Store.commitUpdate(updateEventMutation);
         }
-      }
+       }
     });
   }
 
