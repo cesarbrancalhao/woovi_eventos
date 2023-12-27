@@ -12,8 +12,7 @@ const inputData = {
 
 export default class Event extends React.Component {
   static propTypes = {
-    viewer: React.PropTypes.object.isRequired,
-    node: React.PropTypes.node
+    viewer: React.PropTypes.object.isRequired
   };
 
   state = {

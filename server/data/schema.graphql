@@ -1,0 +1,123 @@
+input AddEventInput {
+  name: String!
+  description: String!
+  date: String!
+  address: String!
+  clientMutationId: String
+}
+
+type AddEventPayload {
+  eventEdge: EventEdge
+  viewer: List
+  clientMutationId: String
+}
+
+input DeleteEventInput {
+  id: ID!
+  name: String!
+  clientMutationId: String
+}
+
+type DeleteEventPayload {
+  DeletedEvent: ID
+  viewer: List
+  clientMutationId: String
+}
+
+# Events added by default
+type Event implements Node {
+  # The ID of an object
+  id: ID!
+
+  # Name of event
+  name: String
+
+  # Description of the event
+  description: String
+
+  # Date of the event
+  date: String
+
+  # Address of the event
+  address: String
+}
+
+# A connection to a list of items.
+type EventConnection {
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of edges.
+  edges: [EventEdge]
+}
+
+# An edge in a connection.
+type EventEdge {
+  # The item at the end of the edge
+  node: Event
+
+  # A cursor for use in pagination
+  cursor: String!
+}
+
+# A kind of list
+type List implements Node {
+  # The ID of an object
+  id: ID!
+
+  # Events that belongs to this list
+  events(after: String, first: Int, before: String, last: Int): EventConnection
+
+  # List's name
+  name: String
+}
+
+type Mutation {
+  addEvent(input: AddEventInput!): AddEventPayload
+  deleteEvent(input: DeleteEventInput!): DeleteEventPayload
+  updateEvent(input: UpdateEventInput!): UpdateEventPayload
+}
+
+# An object with an ID
+interface Node {
+  # The id of the object.
+  id: ID!
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+type Query {
+  # Fetches an object given its ID
+  node(
+    # The ID of an object
+    id: ID!
+  ): Node
+  viewer: List
+}
+
+input UpdateEventInput {
+  name: String!
+  description: String!
+  date: String!
+  address: String!
+  clientMutationId: String
+}
+
+type UpdateEventPayload {
+  event: Event
+  viewer: List
+  clientMutationId: String
+}
