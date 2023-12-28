@@ -1,7 +1,10 @@
 /* eslint-disable no-unused-vars, no-use-before-define */
-
 import {
+  GraphQLBoolean,
+  GraphQLFloat,
   GraphQLID,
+  GraphQLInt,
+  GraphQLList,
   GraphQLNonNull,
   GraphQLObjectType,
   GraphQLSchema,
@@ -12,11 +15,11 @@ import {
   connectionArgs,
   connectionDefinitions,
   connectionFromArray,
-  cursorForObjectInConnection,
   fromGlobalId,
   globalIdField,
   mutationWithClientMutationId,
-  nodeDefinitions
+  nodeDefinitions,
+  cursorForObjectInConnection
 } from 'graphql-relay';
 
 import {

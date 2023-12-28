@@ -32,37 +32,35 @@ export default class Event extends React.Component {
           <Grid>
             <Cell col={12}>
               <Button colored onClick={this.filterByName.bind(this, true)}>List all Events</Button>
-              {/* <Button colored onClick={this.filterByName.bind(this, false)}>List over 30</Button> */}
+              {/* <Button colored onClick={this.filterByName.bind(this, false)}>List future events</Button> */}
             </Cell>
             {this.props.viewer.events.edges.map((edge) => {
               const imageUrl = require('../../assets/team.jpg');
-              const edgeNode = { ...edge.node };
-              const toggleForm = (display) => { edgeNode.displayForm = !display; this.forceUpdate(); };
-              if (this.state.filter || edgeNode.age > 30) {
+              const toggleForm = (display) => { edge.node.displayForm = !display; this.forceUpdate(); };
+              if (this.state.filter) {
                 return (
-                  <Cell col={4} key={edgeNode.id}>
+                  <Cell col={4} key={edge.node.id}>
                     <Card className={styles.card}>
                       <CardTitle expand className={styles.image} style={{ backgroundImage: `url(${imageUrl})` }} />
                       <CardActions className={styles.name}>
-                        <Button colored>{edgeNode.name}</Button>
+                        <Button colored>{edge.node.name}</Button>
                       </CardActions>
                       <CardText>
-                        <b>Name:</b> {edgeNode.name} <br />
-                        <b>Description:</b> {edgeNode.description} <br />
-                        <b>Date:</b> {edgeNode.date} <br />
-                        <b>Address:</b> {edgeNode.address}
+                        <b>Description:</b> {edge.node.description} <br />
+                        <b>Date:</b> {edge.node.date} <br />
+                        <b>Address:</b> {edge.node.address}
                       </CardText>
                       <Grid>
                         <Cell col={6}>
-                          <Button className={styles.button} onClick={this.deleteEvent.bind(this, edgeNode.id, edgeNode.name)}>Delete</Button>
+                          <Button className={styles.button} onClick={this.deleteEvent.bind(this, edge.node.id, edge.node.name)}>Delete</Button>
                         </Cell>
                         <Cell col={6}>
-                          <Button className={styles.button} onClick={toggleForm.bind(this, edgeNode.displayForm)}>Edit</Button>
+                          <Button className={styles.button} onClick={toggleForm.bind(this, edge.node.displayForm)}>Edit</Button>
                         </Cell>
                       </Grid>
                       <Cell col={12}>
-                        {edgeNode.displayForm &&
-                          <AddEvent viewer={this.props.viewer} node={edgeNode} />
+                        {edge.node.displayForm &&
+                          <AddEvent viewer={this.props.viewer} node={edge.node} />
                         }
                       </Cell>
                     </Card>

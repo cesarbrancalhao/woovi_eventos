@@ -31,12 +31,12 @@ function addEvent(name, description, date, address) {
 }
 
 function updateEvent(name, description, date, oldName, address) {
-  const uEvent = events.find(w => w.name === oldName);
-  uEvent.name = name;
-  uEvent.description = description;
-  uEvent.date = date;
-  uEvent.address = address;
-  return uEvent;
+  const foundEvent = events.find(w => w.name === oldName);
+  foundEvent.name = name;
+  foundEvent.description = description;
+  foundEvent.date = date;
+  foundEvent.address = address;
+  return foundEvent;
 }
 
 function deleteEvent(id, name) {
