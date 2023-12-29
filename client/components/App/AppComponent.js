@@ -16,7 +16,7 @@ export default class App extends React.Component {
       <div className={styles.root}>
         <Navbar />
         <div className={styles.greeting}>
-          <h1 className={styles.sawasdee}> </h1>
+          <h1 className={styles.sawasdee}></h1>
         </div>
         <div className={styles.content}>
           {this.props.children}

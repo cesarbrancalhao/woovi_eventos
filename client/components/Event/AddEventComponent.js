@@ -42,13 +42,14 @@ export default class Event extends React.Component {
   address = !this.isNew ? this.props.node.address : '';
 
   validation = (values, validated) => {
+    var isValidated = true;
+
     this.setState({ form: { errors: '' } });
     
     const hasEmptyFields = ['name', 'description', 'date', 'address'].some(field => values[field].length === 0);
     if (hasEmptyFields) {
       this.setState({ form: { errors: 'Complete all the fields' } });
-      validated(false);
-      return;
+      isValidated = false;
     }
    
     // Validates only the date.
@@ -56,27 +57,25 @@ export default class Event extends React.Component {
     const currentDate = (new Date()).setHours(0, 0, 0, 0);
     if (inputDate < currentDate) {
       this.setState({ form: { errors: 'Insert a valid date' } });
-      validated(false);
-      return;
+      isValidated = false;
     }
 
-    if (!this.isNew && this.props.viewer.events.edges.some(event => event.node.name === values.name)) {
+    if (this.isNew && this.props.viewer.events.edges.some(event => event.node.name === values.name)) {
       this.setState({ form: { errors: 'Event already exist' } });
-      validated(false);
-      return;
+      isValidated = false;
     }
    
-    validated(true);
+    validated(isValidated);
    };
 
   addEvent = () => {
-    const self = this;
-    this.state.inputs.map((x, i) => { inputData.newEvent[x.name] = self.refs[x.name].value; });
+    let self = this;
+    this.state.inputs.map((x, i) => { inputData.newEvent[x.name] = self.refs[x.name].value });
     this.validation(inputData.newEvent, (isValidated) => {
       if (isValidated) {
         if (self.isNew) {
-        const addEventMutation = new AddEventMutation({ viewerId: self.props.viewer.id, ...inputData.newEvent });
-        Relay.Store.commitUpdate(addEventMutation);
+          const addEventMutation = new AddEventMutation({ viewerId: self.props.viewer.id, ...inputData.newEvent });
+          Relay.Store.commitUpdate(addEventMutation);
         } else {
           inputData.newEvent.id = self.props.node.id;
           inputData.newEvent.oldName = self.name;

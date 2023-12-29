@@ -38,8 +38,8 @@ export default class Event extends React.Component {
               const imageUrl = require('../../assets/team.jpg');
               let toggleForm = (display) => { edge.node.displayForm = !display; this.forceUpdate(); };
               const currentDate = (new Date()).setHours(0, 0, 0, 0);
-              if (this.state.filter || edge.node.date >= currentDate) {
-                debugger
+              const edgeDate = (new Date(edge.node.date)).setHours(0, 0, 0, 0);
+              if (this.state.filter || edgeDate >= currentDate) {
                 return (
                   <Cell col={4} key={edge.node.id}>
                     <Card className={styles.card}>

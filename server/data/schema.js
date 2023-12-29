@@ -131,7 +131,8 @@ const updateEventMutation = mutationWithClientMutationId({
     name: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: new GraphQLNonNull(GraphQLString) },
     date: { type: new GraphQLNonNull(GraphQLString) },
-    address: { type: new GraphQLNonNull(GraphQLString) }
+    address: { type: new GraphQLNonNull(GraphQLString) },
+    oldName: { type: new GraphQLNonNull(GraphQLString) }
   },
 
   outputFields: {
@@ -145,7 +146,7 @@ const updateEventMutation = mutationWithClientMutationId({
     }
   },
 
-  mutateAndGetPayload: ({ name, description, date, address }) => updateEvent(name, description, date, address)
+  mutateAndGetPayload: ({ name, description, date, address, oldName }) => updateEvent(name, description, date, address, oldName)
 });
 
 const deleteEventMutation = mutationWithClientMutationId({
