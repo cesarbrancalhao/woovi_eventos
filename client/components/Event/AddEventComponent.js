@@ -1,9 +1,12 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import Dropdown from 'react-dropdown';
 import { Button, Card, CardActions, CardText, Cell, Grid } from 'react-mdl';
 import Relay from 'react-relay';
+import styles from './Event.scss';
+import Page from '../Page/PageComponent';
 import AddEventMutation from './AddEventComponent';
 import DeleteEventMutation from './DeleteEventMutation';
-import styles from './Event.scss';
 import UpdateEventMutation from './UpdateEventMutation';
 
 const inputData = {
@@ -39,35 +42,44 @@ export default class Event extends React.Component {
   address = !this.isNew ? this.props.node.address : '';
 
   validation = (values, validated) => {
-    let isValidated = true;
     this.setState({ form: { errors: '' } });
-    if (values.name.length === 0
-      || values.description.length === 0
-      || values.date.length === 0
-      || values.address.length === 0) {
+    
+    const hasEmptyFields = ['name', 'description', 'date', 'address'].some(field => values[field].length === 0);
+    if (hasEmptyFields) {
       this.setState({ form: { errors: 'Complete all the fields' } });
-      isValidated = false;
-    } else if (this.isNew) {
-      if (this.props.viewer.events.edges.find(w => w.node.name === values.name)) {
-        this.setState({ form: { errors: 'Event already exist' } });
-        isValidated = false;
-      }
+      validated(false);
+      return;
     }
-    validated(isValidated);
-  };
+   
+    // Validates only the date.
+    const inputDate = (new Date(values.date)).setHours(0, 0, 0, 0);
+    const currentDate = (new Date()).setHours(0, 0, 0, 0);
+    if (inputDate < currentDate) {
+      this.setState({ form: { errors: 'Insert a valid date' } });
+      validated(false);
+      return;
+    }
+
+    if (!this.isNew && this.props.viewer.events.edges.some(event => event.node.name === values.name)) {
+      this.setState({ form: { errors: 'Event already exist' } });
+      validated(false);
+      return;
+    }
+   
+    validated(true);
+   };
 
   addEvent = () => {
     const self = this;
-    this.state.inputs.forEach((x) => { inputData.newEvent[x.name] = self.refs[x.name].value; });
+    this.state.inputs.map((x, i) => { inputData.newEvent[x.name] = self.refs[x.name].value; });
     this.validation(inputData.newEvent, (isValidated) => {
       if (isValidated) {
         if (self.isNew) {
-          if (inputData.newEvent.name && inputData.newEvent.description && inputData.newEvent.date && inputData.newEvent.address) {
-            const addEventMutation = new AddEventMutation({ viewerId: self.props.viewer.id, ...inputData.newEvent });
-            Relay.Store.commitUpdate(addEventMutation);
-          }
+        const addEventMutation = new AddEventMutation({ viewerId: self.props.viewer.id, ...inputData.newEvent });
+        Relay.Store.commitUpdate(addEventMutation);
         } else {
           inputData.newEvent.id = self.props.node.id;
+          inputData.newEvent.oldName = self.name;
           const updateEventMutation = new UpdateEventMutation({ viewerId: self.props.viewer.id, ...inputData.newEvent });
           Relay.Store.commitUpdate(updateEventMutation);
         }
@@ -75,28 +87,27 @@ export default class Event extends React.Component {
     });
   }
 
-  deleteEvent = (id) => {
-    const deleteEventMutation = new DeleteEventMutation({ viewerId: this.props.viewer.id, id });
+  deleteEvent = (id, name) => {
+    const deleteEventMutation = new DeleteEventMutation({ viewerId: this.props.viewer.id, id, name });
     Relay.Store.commitUpdate(deleteEventMutation);
   }
 
-  renderInput = input => (
-    <label htmlFor={input.name} key={input.name}>
-      {input.placeholder}
-      <input
-        className={styles.input}
-        id={input.name}
-        key={input.name}
-        ref={input.name}
-        name={input.name}
-        type={input.type}
-        defaultValue={input.defaultValue}
-      />
-    </label>
-  );
+  renderInput = input => {
+    return (
+        <label key={input.name}>
+        {input.placeholder}
+          <input className={styles.input}
+            id={input.name}
+            key={input.name}
+            ref={input.name}
+            name={input.name}
+            type={input.type}
+            defaultValue={input.defaultValue} />
+        </label> 
+      );
+  };
 
   render() {
-    const imageUrl = require('../../assets/team.jpg');
     return (
       <Card className={this.cardClass}>
         <CardActions className={styles.name}>
@@ -112,7 +123,7 @@ export default class Event extends React.Component {
         </CardText>
         <Grid>
           <Cell col={12}>
-            <Button raised accent onClick={this.addEvent.bind(this)}>{this.button}</Button>
+            <Button raised accent onClick={this.addEvent.bind(this,)}>{this.button}</Button>
           </Cell>
         </Grid>
       </Card>

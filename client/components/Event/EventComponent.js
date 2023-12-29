@@ -21,7 +21,7 @@ export default class Event extends React.Component {
     Relay.Store.commitUpdate(deleteEventMutation);
   };
 
-  filterByName = (bool) => {
+  filterByDate = (bool) => {
     this.setState({ filter: bool });
   }
 
@@ -31,13 +31,15 @@ export default class Event extends React.Component {
         <Page heading='Event List'>
           <Grid>
             <Cell col={12}>
-              <Button colored onClick={this.filterByName.bind(this, true)}>List all Events</Button>
-              {/* <Button colored onClick={this.filterByName.bind(this, false)}>List future events</Button> */}
+              <Button colored onClick={this.filterByDate.bind(this, true)}>List all events</Button>
+              <Button colored onClick={this.filterByDate.bind(this, false)}>List upcoming events</Button>
             </Cell>
             {this.props.viewer.events.edges.map((edge) => {
               const imageUrl = require('../../assets/team.jpg');
-              const toggleForm = (display) => { edge.node.displayForm = !display; this.forceUpdate(); };
-              if (this.state.filter) {
+              let toggleForm = (display) => { edge.node.displayForm = !display; this.forceUpdate(); };
+              const currentDate = (new Date()).setHours(0, 0, 0, 0);
+              if (this.state.filter || edge.node.date >= currentDate) {
+                debugger
                 return (
                   <Cell col={4} key={edge.node.id}>
                     <Card className={styles.card}>

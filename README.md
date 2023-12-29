@@ -33,8 +33,7 @@ $ npm start
     │   ├── data
     │   │   ├── database.js - Database logic
     │   │   ├── schema.graphql - Compiled schema
-    │   │   ├── schema.js - Schema definitions
-    │   │   └── schema.json
+    │   │   └── schema.js - Schema definitions
     │   ├── utils
     │   │   ├── babelRelayPlugin.js
     │   │   └── updateSchema.js - Compiler for schema to schema.json/schema.graphql

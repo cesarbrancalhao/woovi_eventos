@@ -98,8 +98,7 @@ module.exports = {
         {
           loader: 'postcss-loader',
           options: {
-            //https://github.com/postcss/postcss-loader/issues/164
-            // use ident if passing a function
+            //https://github.com/postcss/postcss-loader/issues/164 <- ident when passing a function
             ident: 'postcss', plugins: () => [
               require('precss'),
               require('autoprefixer')
