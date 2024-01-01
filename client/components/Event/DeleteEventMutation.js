@@ -10,7 +10,8 @@ class DeleteEventMutation extends Relay.Mutation {
 
   getVariables() {
     return {
-      id: this.props.id
+      id: this.props.id,
+      name: this.props.name
     };
   }
 

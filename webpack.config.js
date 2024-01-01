@@ -12,7 +12,7 @@ let devtool;
 let plugins;
 
 const htmlTemplate = new HtmlWebpackPlugin({
-  title: 'Relay Starter Kit - Integrated with Relay, GraphQL, Express, ES6/ES7, JSX, Webpack, Babel, Material Design Lite, and PostCSS',
+  title: 'Woovi Eventos',
   template: './client/index.html',
   mobile: true,
   inject: false
@@ -98,8 +98,7 @@ module.exports = {
         {
           loader: 'postcss-loader',
           options: {
-            //https://github.com/postcss/postcss-loader/issues/164
-            // use ident if passing a function
+            //https://github.com/postcss/postcss-loader/issues/164 <- ident when passing a function
             ident: 'postcss', plugins: () => [
               require('precss'),
               require('autoprefixer')

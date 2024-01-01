@@ -30,17 +30,17 @@ function addEvent(name, description, date, address) {
   return newEvent;
 }
 
-function updateEvent(name, description, date, oldName, address) {
-  const uEvent = events.find(w => w.name === oldName);
-  uEvent.name = name;
-  uEvent.description = description;
-  uEvent.date = date;
-  uEvent.address = address;
-  return uEvent;
+function updateEvent(name, description, date, address, oldName) {
+  let foundEvent = events.find(w => w.name === oldName);
+  foundEvent.name = name;
+  foundEvent.description = description;
+  foundEvent.date = date;
+  foundEvent.address = address;
+  return foundEvent;
 }
 
 function deleteEvent(id, name) {
-  events = events.filter(dEvent => dEvent.name !== name);
+  events = events.filter(selectedEvent => selectedEvent.name !== name);
   return { id };
 }
 
