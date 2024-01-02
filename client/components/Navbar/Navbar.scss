@@ -2,23 +2,27 @@
 
 .root :global {
   .mdl-layout-title a {
-    color: $white;
+    color: $black;
     text-decoration: none;
     font-weight: normal;
-    background-color: $blue;
+    background-color: $green;
+  }
+
+  .mdl-layout__header { 
+    background-color: $green;
   }
 
   .mdl-layout__header-row .mdl-navigation__link {
-    color: $white !important;
-    background-color: $blue;
+    color: $black !important;
+    background-color: $green;
   }
 
   .mdl-layout__drawer > .mdl-layout-title {
     padding-top: 36px;
-    background-color: $blue;
+    background-color: $green;
   }
 
   .mdl-layout__drawer-button {
-    color: $white !important;
+    color: $black !important;
   }
 }

@@ -5,7 +5,7 @@ import styles from './Navbar.scss';
 
 export default class Navbar extends React.Component {
   render() {
-    const title = 'Woovi Challenge';
+    const title = 'Woovi Eventos';
     return (
       <Layout className={styles.root}>
         <Header title={<Link to='/'>{title}</Link>} scroll>
